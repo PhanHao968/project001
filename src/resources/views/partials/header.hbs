@@ -1,0 +1,63 @@
+<nav class="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg">
+  <div class="container px-4 mx-auto flex flex-wrap items-center justify-between">
+    <div class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
+      <a class="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
+        href="/">TD Group X</a>
+        <button
+        class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+        type="button" onclick="toggleNavbar('example-collapse-navbar')">
+        <i class="text-white fas fa-bars"></i>
+      </button>
+    </div>
+    
+    <div class="lg:flex flex-grow bg-white lg:bg-opacity-0 lg:shadow-none hidden lg:justify-start"
+      id="example-collapse-navbar">
+
+      <ul class="flex flex-col lg:flex-row list-none lg:ml-auto items-center justify-between">
+        <li class="inline-block relative justify-between">
+
+          {{#if userName}}
+          <a class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xm font-normal "
+            href="#" onclick="openDropdown(event,'demo-pages-dropdown')">
+            <div class="flex items-center">
+              <img src="{{userAvatar}}" alt="avt" class="rounded-full h-8 w-8 mr-2">
+              <span class="ml-1">{{userName}}</span>
+            </div>
+            {{else}}
+            <div>
+              <a href="../login" class="lg:text-white lg:hover:text-blueGray-200">
+                <i class="fas fa-lock px-3 "></i>
+                Sign in/Sign up
+              </a>
+            </div>
+            {{/if}}
+          </a>
+
+          <div class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48 lg:absolute lg:right-0"
+            id="demo-pages-dropdown">
+            <a href="../dashboard/store">
+              <span
+                class="text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400 hover:text-pink-600 mr2">
+                <i class="fas fa-user mr-2 text-sm opacity-75"></i>
+                {{userName}}
+              </span>
+            </a>
+            {{#if userName}}
+            <a href="../logout"
+              class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:text-pink-600">
+              <i class="fas fa-lock-open px-1 mr-2"></i>
+              Logout
+            </a>
+            {{/if}}
+          </div>
+        </li>
+        {{!-- <li class="flex items-center">
+          <a class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+            href="/login" target="_blank"><i
+              class="lg:text-blueGray-200 text-blueGray-400 fab fa-facebook text-lg leading-lg"></i><span
+              class="lg:hidden inline-block ml-2">Share</span></a>
+        </li> --}}
+      </ul>
+    </div>
+  </div>
+</nav>
