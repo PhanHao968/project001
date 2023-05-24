@@ -74,8 +74,7 @@
                 </td>
 
 
-                <td class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
-                  id="getId" data-item-id="{{this._id}}">
+                <td class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
                   <a href="#pablo" class="text-blueGray-500 block py-1 px-3"
                     onclick="openDropdown(event,'table-light-1-dropdown-{{@index}}','{{this._id}}')">
                     <i class="fas fa-ellipsis-v"></i>
@@ -88,7 +87,8 @@
                       class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:text-pink-600">
                       Sửa</a>
 
-                    <button type="button" onclick="showModal('{{this._id}}')"
+                    <button id="deleteButton" type="button" onclick="showModal('{{this._id}}')"
+                      data-item-id="{{this._id}}"
                       class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:text-pink-600">
                       Xoá</a>
                     </button>
@@ -178,7 +178,7 @@
           </div>
         </div>
         <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-          <button type="button" onclick="deleteItem()"
+          <button type="button" onclick="deleteItem('{{this._id}}')"
             class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Delete</button>
           <button onclick="closeModal()" type="button"
             class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Close</button>
@@ -188,37 +188,49 @@
   </div>
 </div>
 
-<form id="delete-user-form" method="POST"></form>
+<form name="delete-user-form" method="POST"></form>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 <script>
 
-  function showModal() {
-    document.getElementById('delete-modal').classList.remove('hidden');
-    const itemId = document.getElementById('.your-selector').getAttribute('data-item-id');
-    console.log('12344444444', itemId)
-  }
+ var itemId;
 
-  function closeModal() {
-    document.getElementById('delete-modal').classList.add('hidden');
-  }
+const deleteButton = document.getElementById('deleteButton');
+deleteButton.addEventListener('click', function () {
+  deleteItem(itemId);
+});
 
-
-  const itemId = document.getElementById('getId').getAttribute('data-item-id');
-  function deleteItem() {
-    const formEvent = document.getElementById("delete-user-form");
-    formEvent.action = `/user/${itemId}?_method=DELETE`
-    formEvent.submit();
-    closeModal();
-  }
+function showModal(id) {
+  debugger
+  document.getElementById('delete-modal').classList.remove('hidden');
+  console.log('showmodal', id)
+  itemId = id;
+}
 
 
-  document.addEventListener('click', (event) => {
-    if (event.target.closest('#delete-modal')) // true
-      document.getElementById('delete-modal').classList.add('hidden')
-  })
+const deleteForm = document.getElementById("delete-user-form");
+
+function deleteItem(id) {
+  debugger
+  console.log('1244444', id)
+  deleteForm.action = `/user/${id}?_method=DELETE`
+  deleteForm.submit();
+  closeModal();
+
+}
+
+function closeModal() {
+  document.getElementById('delete-modal').classList.add('hidden');
+}
+
+
+document.addEventListener('click', (event) => {
+  if (event.target.closest('#delete-modal')) // true
+    document.getElementById('delete-modal').classList.add('hidden')
+    
+});
 
 
 </script>
