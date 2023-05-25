@@ -156,7 +156,11 @@
           </div>
         </div>
         <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+<<<<<<< HEAD
           <button type="button" id="deleteButton" onclick="deleteItem()"
+=======
+          <button type="button" onclick="deleteItem()"
+>>>>>>> d2d459833ce7914dd223d6d5cad2687f01c338c5
             class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Delete</button>
           <button onclick="closeModal()" type="button"
             class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Close</button>
@@ -166,7 +170,10 @@
   </div>
 </div>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> d2d459833ce7914dd223d6d5cad2687f01c338c5
 <form id="delete-user-form" method="POST"></form>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -176,6 +183,7 @@
 
   var itemId;
 
+<<<<<<< HEAD
   function showModal(id) {
     document.getElementById('delete-modal').classList.remove('hidden');
     itemId = id;
@@ -197,6 +205,32 @@
   document.addEventListener('click', (event) => {
     if (event.target.closest('#delete-modal')) // true
       document.getElementById('delete-modal').classList.add('hidden')
+=======
+
+// Show modal delete
+function showModal(id) {
+  document.getElementById('delete-modal').classList.remove('hidden');
+  itemId = id; // set id for itemId variable
+}
+
+// deleteItem will be execute after button Delete onclick
+function deleteItem() {
+  const deleteForm = document.getElementById("delete-user-form"); // Get element form
+  deleteForm.action = `/user/${itemId}?_method=DELETE` // form get action along with itemId set before
+  deleteForm.submit(); // form get submit
+  closeModal();
+}
+
+function closeModal() {
+  document.getElementById('delete-modal').classList.add('hidden');
+}
+
+
+document.addEventListener('click', (event) => {
+  if (event.target.closest('#delete-modal')) // true
+    document.getElementById('delete-modal').classList.add('hidden')
+});
+>>>>>>> d2d459833ce7914dd223d6d5cad2687f01c338c5
 
   });
 
