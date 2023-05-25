@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const mongooseDelete = require('mongoose-delete');
 const slug = require('mongoose-slug-generator');
+const moment = require('moment-timezone');
 
 const userSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -11,7 +12,7 @@ const userSchema = mongoose.Schema({
     img: { data: Buffer, contentType: String },
     avatar: { data: Buffer, contentType: String },
     position: { type: String },
-    city: { type: String},
+    city: { type: String },
     country: { type: String },
     education: { type: String },
     specialized: { type: String },
@@ -23,9 +24,10 @@ const userSchema = mongoose.Schema({
         match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
     },
     admin: { type: Boolean },
+    isApproved: { type: Boolean, default: false},
     password: { type: String, required: true },
-    createdAt: { type: Date, default: new Date() },
-    updateAt: { type: Date, default: new Date() },
+    createdAt: { type: Date, default: moment().tz('Asia/Ho_Chi_Minh').toDate() },
+    updatedAt: { type: Date, default: moment().tz('Asia/Ho_Chi_Minh').toDate() },
 }, {
     timestamps: true,
 });

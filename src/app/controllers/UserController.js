@@ -27,12 +27,19 @@ class UserController {
         name,
         email,
         password: hashedPassword,
+        isApproved: false,
         admin: process.env.ADMIN_USER === email ? true : false,
       });
       const result = await user.save();
-      return res.redirect("/dashboard/store");
+
+      let role;
+      if (user.isApproved) {
+        role = user.admin ? "admin" : "user";
+      } else {
+        role = "pending";
+      }
+      return res.redirect("/");
     } catch (err) {
-      ƒ;
       console.log(err);
       res.status(500).json({ error: err });
     }
@@ -41,7 +48,7 @@ class UserController {
   userEdit(req, res, next) {
     User.findById(req.params.id)
       .then((User) => {
-        res.render("auth/registerEdit", { 
+        res.render("auth/registerEdit", {
           layout: "admin",
           User: mongooseToObject(User),
         });
@@ -89,14 +96,7 @@ class UserController {
     }
   }
 
-  // async deleteUser(req, res, next) {
-  //     try {
-  //         const deletedUser = await User.delete({ _id: req.params.id });
-  //         res.redirect('back')
-  //     } catch (error) {
-  //         next(error);
-  //     }
-  // };
+
 
   deleteUser(req, res, next) {
     const id = req.params.id.trim();
@@ -117,7 +117,23 @@ class UserController {
     User.deleteOne({ _id: id })
       .then(() => res.redirect("back"))
       .catch(next);
-  }
+  };
+
+  // Controller
+  updateUserApproval = async (req, res) => {
+    const userId = req.params.userId;
+    const isApproved = req.body.isApproved;
+  
+    try {
+      const updatedUser = await User.findByIdAndUpdate(userId, { isApproved });
+  
+      res.redirect('../dashboard/store')
+    } catch (error) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  };
+  
+
 }
 
 module.exports = new UserController();

@@ -40,12 +40,50 @@ class SettingController {
         updateFields.description = description ? description : '';
         updateFields.specialized = specialized ? specialized : '';
 
-        const tagsRemove = ['&nbsp;', '<p>', '</p>', '<br>', '</br>', 'style:text-align:center', 'span',
-            'style="font-size"'];
 
-        tagsRemove.forEach((element) => {
-            updateFields.description = updateFields.description.replaceAll(element, '')
-        })
+        User.updateOne({ _id: userId }, updateFields)
+            .then(() => {
+                User.findById(userId)
+                    .then((User) => {
+                        if (User) {
+                            User.slug = createSlug(User.firstName);
+                            User.save();
+                        }
+                    });
+                res.redirect('back');
+            })
+            .catch(next);
+    };
+
+    editProfile(req, res, next) {
+        User.findById(req.params.id)
+            .then((User) => {
+                res.render('admin/settings', {
+                    layout: "admin",
+                    User: mongooseToObject(User),
+                });
+            })
+            .catch(next);
+    }
+
+    updateProfile(req, res, next) {
+
+        const userId = req.params.id;
+        const { firstName, lastName, specialized, position, city, country, education, description } = req.body;
+        const updateFields = {};
+
+        if (req.file) {
+            updateFields.avatar = "/img/" + req.file.filename;
+        }
+
+        updateFields.firstName = firstName ? firstName : '';
+        updateFields.lastName = lastName ? lastName : '';
+        updateFields.position = position ? position : '';
+        updateFields.city = city ? city : '';
+        updateFields.country = country ? country : '';
+        updateFields.education = education ? education : '';
+        updateFields.description = description ? description : '';
+        updateFields.specialized = specialized ? specialized : '';
 
 
         User.updateOne({ _id: userId }, updateFields)
