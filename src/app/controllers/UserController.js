@@ -96,8 +96,6 @@ class UserController {
     }
   }
 
-
-
   deleteUser(req, res, next) {
     const id = req.params.id.trim();
     User.delete({ _id: id })
@@ -117,23 +115,26 @@ class UserController {
     User.deleteOne({ _id: id })
       .then(() => res.redirect("back"))
       .catch(next);
-  };
+  }
 
   // Controller
   updateUserApproval = async (req, res) => {
     const userId = req.params.userId;
     const isApproved = req.body.isApproved;
-  
+
     try {
-      const updatedUser = await User.findByIdAndUpdate(userId, { isApproved });
-  
-      res.redirect('../dashboard/store')
+      await User.findByIdAndUpdate(
+        { _id: userId },
+        {
+          isApproved,
+        }
+      ).exec();
+
+      res.redirect("../dashboard/store");
     } catch (error) {
       res.status(500).json({ success: false, error: error.message });
     }
   };
-  
-
 }
 
 module.exports = new UserController();
