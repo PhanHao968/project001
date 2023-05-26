@@ -85,7 +85,7 @@
                 </td>
 
                 <td class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <input type="checkbox" id="approvalCheckbox{{@index}}"           
+                  <input type="checkbox" id="approvalCheckbox{{@index}}"
                     onclick="updateApproval('{{this._id}}', {{this.isApproved}})" {{#if this.isApproved}}checked{{/if}}>
                 </td>
 
@@ -176,33 +176,34 @@
   var itemId;
 
 
-// Show modal delete
-function showModal(id) {
-  document.getElementById('delete-modal').classList.remove('hidden');
-  itemId = id; // set id for itemId variable
-}
+  // Show modal delete
+  function showModal(id) {
+    document.getElementById('delete-modal').classList.remove('hidden');
+    itemId = id; // set id for itemId variable
+  }
 
-// deleteItem will be execute after button Delete onclick
-function deleteItem() {
-  const deleteForm = document.getElementById("delete-user-form"); // Get element form
-  deleteForm.action = `/user/${itemId}?_method=DELETE` // form get action along with itemId set before
-  deleteForm.submit(); // form get submit
-  closeModal();
-}
+  // deleteItem will be execute after button Delete onclick
+  function deleteItem() {
+    const deleteForm = document.getElementById("delete-user-form"); // Get element form
+    deleteForm.action = `/user/${itemId}?_method=DELETE` // form get action along with itemId set before
+    deleteForm.submit(); // form get submit
+    closeModal();
+  }
 
-function closeModal() {
-  document.getElementById('delete-modal').classList.add('hidden');
-}
+  function closeModal() {
+    document.getElementById('delete-modal').classList.add('hidden');
+  }
 
 
-document.addEventListener('click', (event) => {
-  if (event.target.closest('#delete-modal')) // true
-    document.getElementById('delete-modal').classList.add('hidden')
-});
+  document.addEventListener('click', (event) => {
+    if (event.target.closest('#delete-modal')) // true
+      document.getElementById('delete-modal').classList.add('hidden')
+  });
+
 
   //checked verify
   var userId;
-  function updateApproval(userId, isChecked) {
+  function updateApproval_2(userId, isChecked) {
     fetch(`/user/${userId}/approval`, {
       method: 'PUT',
       headers: {
@@ -216,6 +217,22 @@ document.addEventListener('click', (event) => {
       .catch(error => {
         window.alert(error)
       });
+
+  }
+
+  async function updateApproval(userId, isChecked) {
+    try {
+        await fetch(`/user/${userId}/approval`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ isApproved: !isChecked }),
+      })
+      window.location.reload(true);
+    } catch {
+      window.alert(error)
+    }
   }
 
 </script>
