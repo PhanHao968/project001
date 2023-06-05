@@ -1,5 +1,5 @@
 {{!-- --}}
-<div class="px-4 md:px-10 mx-auto w-full -m-24">
+<div class="px-4 md:px-10 mx-auto w-full ">
   <div class="flex flex-wrap mt-4">
     <div class="w-full mb-12 px-4 py-12">
       <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
@@ -41,7 +41,7 @@
                 </th>
                 <th
                   class="px-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
-                  Date Update
+                  Date Delete
                   <a href="{{../sortUrl}}?field=name&order={{../sortOrder}}" class="text-indigo-600">{{{updateAt}}}</a>
                 </th>
                 <th
@@ -52,28 +52,25 @@
             <tbody>
               {{#each users}}
               <tr>
-                <td class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                <td class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
                   {{sum @index 1}}
                 </td>
-                <th
-                  class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                <th class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 text-left">
                   <span class="ml-3 font-bold text-blueGray-600">
                     {{this.email}}
                   </span>
                 </th>
-                <td class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                <td class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
                   {{this.name}}
                 </td>
-                <td class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <i class="fas fa-circle text-orange-500 mr-2"></i>
+                <td class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
                   {{this.createdAt}}
                 </td>
-                <td class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <i class="fas fa-circle text-orange-500 mr-2"></i>
-                  {{this.updateAt}}
+                <td class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
+                  {{this.updatedAt}}
                 </td>
 
-                <td class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                <td class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 text-right">
                   <a href="#pablo" class="text-blueGray-500 block py-1 px-3"
                     onclick="openDropdown(event,'table-light-1-dropdown-{{@index}}','{{this._id}}')">
                     <i class="fas fa-ellipsis-v"></i>
@@ -84,7 +81,7 @@
                       class="btn-restore text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:text-pink-600"
                       data-item-id=" {{this._id}} ">
                       Khôi phục</a>
-                    <button id="getId" type="button" data-item-id="{{this._id }}" onclick="showModal('{{this._id}}')"
+                    <button type="button" onclick="showModal('{{this._id}}')"
                       class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:text-pink-600">
                       Xoá</a>
                     </button>
@@ -99,50 +96,7 @@
     </div>
 
   </div>
-  <footer class="block py-4">
-    <div class="container mx-auto px-4">
-      <hr class="mb-4 border-b-1 border-blueGray-200" />
-      <div class="flex flex-wrap items-center md:justify-between justify-center">
-        <div class="w-full md:w-4/12 px-4">
-          <div class="text-sm text-blueGray-500 font-semibold py-1 text-center md:text-left">
-            Copyright © <span id="get-current-year"></span>
-            <a href="https://www.creative-tim.com?ref=njs-settings"
-              class="text-blueGray-500 hover:text-blueGray-700 text-sm font-semibold py-1">
-              Creative Tim
-            </a>
-          </div>
-        </div>
-        <div class="w-full md:w-8/12 px-4">
-          <ul class="flex flex-wrap list-none md:justify-end justify-center">
-            <li>
-              <a href="https://www.creative-tim.com?ref=njs-settings"
-                class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3">
-                Creative Tim
-              </a>
-            </li>
-            <li>
-              <a href="https://www.creative-tim.com/presentation?ref=njs-settings"
-                class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3">
-                About Us
-              </a>
-            </li>
-            <li>
-              <a href="http://blog.creative-tim.com?ref=njs-settings"
-                class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3">
-                Blog
-              </a>
-            </li>
-            <li>
-              <a href="https://github.com/creativetimofficial/notus-js/blob/main/LICENSE.md?ref=njs-settings"
-                class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3">
-                MIT License
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
+
 </div>
 {{!-- --}}
 </div>
@@ -187,10 +141,14 @@
 <form id="restore-user-form" method="POST"></form>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  function showModal() {
 
-    document.getElementById('delete-modal').classList.remove('hidden'); // single tag
+<script>
+
+  var itemId;
+
+  function showModal(id) {
+    document.getElementById('delete-modal').classList.remove('hidden');
+    itemId = id;
   }
 
   function closeModal() {
@@ -198,26 +156,25 @@
   }
   //
   function deleteItem() {
-    const itemId = document.getElementById('getId').getAttribute('data-item-id');
-    const formEvent = document.getElementById("delete-user-form");
-    formEvent.action = `/user/${itemId}/force?_method=DELETE`
-    formEvent.submit();
+    const deleteForm = document.getElementById("delete-user-form");
+    deleteForm.action = `/user/${itemId}/force?_method=DELETE`
+    deleteForm.submit();
     closeModal();
   }
   //
   const restoreBtn = $('.btn-restore');
   const restoreForm = document.getElementById("restore-user-form");
+
   restoreBtn.click(function (e) {
     e.preventDefault();
     let userId = $(this).data('item-id')
     restoreForm.action = `/user/${userId}/restore?_method=PATCH`;
     restoreForm.submit();
-
   })
 
-  
+
   document.addEventListener('click', (event) => {
-    if (event.target.closest('#delete-modal')) // true
+    if (event.target.closest('#delete-modal')) 
       document.getElementById('delete-modal').classList.add('hidden')
   })
 

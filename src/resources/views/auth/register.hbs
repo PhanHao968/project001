@@ -5,15 +5,15 @@
         style="background-image: url(/img/register_bg_2.png)"></div>
       <div class="container mx-auto px-4 h-full">
         <div class="flex content-center items-center justify-center h-full">
-          <div class="w-full lg:w-6/12 px-4">
+          <div class="w-full lg:w-4/12 px-4">
             <div
               class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
-              <div class="rounded-t mb-0 px-6 py-6">
-                <div class="text-center mb-3">
+              <div class="rounded-t mb-0 px-6 py-2">
+                {{!-- <div class="text-center mb-3">
                   <h6 class="text-blueGray-500 text-sm font-bold">
                     Sign up with
                   </h6>
-                </div>
+                </div> --}}
                 <div class="btn-wrapper text-center">
                   {{!-- <button
                     class="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
@@ -31,39 +31,61 @@
                 <hr class="mt-6 border-b-1 border-blueGray-300" />
               </div>
               <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-                <div class="text-blueGray-400 text-center mb-3 font-bold">
+                <div class="text-blueGray-600 text-center mb-3 font-bold">
                   <small>Or sign up with credentials</small>
                 </div>
-                <form method="POST" action="/user/store">
+                <form method="POST">
                   <div class="relative w-full mb-3">
                     <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="grid-password">
                       Name
                     </label>
-                    <input type="name" name="name"
+                    <input type="name" name="name" id="name"
                       class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Name" />
+                    <small class="text-red-500"></small>
                   </div>
 
                   <div class="relative w-full mb-3">
                     <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="grid-password">
                       Email
                     </label>
-                    <input type="email" name="email"
+                    <input type="email" name="email" id="email"
                       class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Email" />
+                    <small class="text-red-500"></small>
                   </div>
 
                   <div class="relative w-full mb-3">
                     <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="grid-password">
                       Password
                     </label>
-                    <input type="password" name="password"
+                    <input type="password" name="password" id="password"
                       class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Password" />
+                    <small class="text-red-500"></small>
                   </div>
 
+                  <div class="relative w-full mb-3">
+                    <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="grid-password">
+                      Confirm Password
+                    </label>
+                    <input type="password" name="confirmPassword" id="confirmPassword"
+                      class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      placeholder="Confirm Password" />
+                    <small class="text-red-500"></small>
+                  </div>
+                  <div id="error-message" class="text-red-500 mt-2 text-center"></div>
+
+                  {{!-- --}}
+                  <div class="flex justify-between">
+                    <div id="success-message" class="text-green-500 text-left py-1 hidden">Bạn đã đăng ký thành công!
+                    </div>
+                    <a href="/login" id="login-button"
+                      class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded hidden">Login</a>
+                  </div>
+                  {{!-- --}}
                   <div>
-                    <label class="inline-flex items-center cursor-pointer">
+                    <label class="inline-flex items-center cursor-pointer mt-4">
                       <input id="customCheckLogin" type="checkbox"
                         class="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150" />
                       <span class="ml-2 text-sm font-semibold text-blueGray-600">
@@ -88,9 +110,103 @@
           </div>
         </div>
       </div>
-      
+
     </section>
   </main>
 </div>
 <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
 
+<script>
+  var userName = document.querySelector("#name");
+  var userEmail = document.querySelector("#email");
+  var userPassword = document.querySelector("#password");
+  var confirmPassword = document.querySelector("#confirmPassword");
+  var form = document.querySelector("form");
+
+  function showError(input, message) {
+    let parent = input.parentElement;
+    let small = parent.querySelector('small');
+    parent.classList.add("error");
+    small.innerText = message;
+  }
+
+  function showSuccess(input) {
+    let parent = input.parentElement;
+    let small = parent.querySelector('small');
+    parent.classList.remove("error");
+    small.innerText = "";
+  }
+
+  function checkEmptyError(listInput) {
+    let isEmptyError = false;
+    listInput.forEach(input => {
+      input.value = input.value.trim();
+      if (!input.value) {
+        isEmptyError = true;
+        showError(input, "Cannot be empty!")
+      } else {
+        showSuccess(input)
+      }
+    });
+    return isEmptyError;
+  }
+
+  function checkEmailError(input) {
+    const regexEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    input.value = input.value.trim();
+    let isEmailError = !regexEmail.test(input.value);
+    if (regexEmail.test(input.value)) {
+      showSuccess(input);
+    } else {
+      showError(input, 'Email Invalid!');
+    }
+    return isEmailError;
+  }
+
+  function displayErrorMessage(message) {
+    var errorMessageElement = document.querySelector("#error-message");
+    errorMessageElement.textContent = message;
+  }
+
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var successMessage = document.getElementById("success-message");
+    var loginBtn = document.getElementById("login-button");
+
+    let isEmptyError = checkEmptyError([userName, userEmail, userPassword, confirmPassword]);
+    let isEmailError = checkEmailError(userEmail);
+    let hasError = false;
+
+    if (!isEmptyError && !isEmailError) {
+      var formData = {
+        name: userName.value,
+        email: userEmail.value,
+        password: userPassword.value,
+        confirmPassword: confirmPassword.value,
+      };
+
+      axios.post('/register/store', formData)
+        .then(function (response) {
+          successMessage.classList.remove("hidden");
+          loginBtn.classList.remove("hidden");
+
+          setTimeout(function () {
+            successMessage.classList.add("hidden");
+            loginBtn.classList.add("hidden");
+            window.location.href = "/register";
+          }, 120000);
+        })
+        .catch(function (error) {
+          if (error.response) {
+            displayErrorMessage(error.response.data.message);
+            hasError = true;
+          }
+        });
+    }
+    if (!hasError) {
+      displayErrorMessage("");
+    }
+  });
+
+</script>

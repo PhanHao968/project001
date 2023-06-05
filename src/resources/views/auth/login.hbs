@@ -30,14 +30,15 @@
               <div class="text-blueGray-400 text-center mb-3 font-bold">
                 <small>Or sign in with credentials</small>
               </div>
-              <form method="POST" name="loginForm" onsubmit="return loginForm()">
+              {{!-- login form --}}
+              <form method="POST" name="loginForm">
                 <div class="relative w-full mb-3">
-
-                  <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="grid-password">Email</label>
-
+                  <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    for="grid-password">Email</label>
                   <input type="email" name="email" id="email"
                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     placeholder="Email" />
+                  <small class="text-red-500"></small>
                 </div>
                 <div class="relative w-full mb-3">
                   <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -46,7 +47,9 @@
                   <input type="password" name="password" id="password"
                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     placeholder="Password" />
+                  <small class="text-red-500"></small>
                 </div>
+                <div id="error-message" class="text-red-500 mt-2 text-center"></div>
                 <div>
                   <label class="inline-flex items-center cursor-pointer"><input id="customCheckLogin" type="checkbox"
                       class="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150" /><span
@@ -59,10 +62,12 @@
                     Sign In
                   </button>
                 </div>
+
               </form>
+              {{!-- --}}
               <div class="flex flex-wrap mt-6">
                 <div class="w-1/2">
-                  <a href="" class="text-blueGray-600"><small>Forgot password?</small></a>
+                  <a href="/register" class="text-blueGray-600"><small>Create account</small></a>
                 </div>
                 {{!-- <div class="w-1/2 text-right">
                   <a href="" class="text-blueGray-600"><small>Create new account</small></a>
@@ -77,7 +82,85 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+{{!--
+<script src="bCrypt.js" type="text/javascript"></script> --}}
+{{!--
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script> --}}
 
 <script>
+  
+  var userEmail = document.querySelector("#email");
+  var userPassword = document.querySelector("#password");
+  var form = document.querySelector("form");
 
+  function showError(input, message) {
+    let parent = input.parentElement;
+    let small = parent.querySelector('small');
+    parent.classList.add("error");
+    small.innerText = message;
+  }
+
+  function showSuccess(input) {
+    let parent = input.parentElement;
+    let small = parent.querySelector('small');
+    parent.classList.remove("error");
+    small.innerText = "";
+  }
+
+  function checkEmptyError(listInput) {
+    let isEmptyError = false;
+    listInput.forEach(input => {
+      input.value = input.value.trim();
+      if (!input.value) {
+        isEmptyError = true;
+        showError(input, "Cannot be empty!")
+      } else {
+        showSuccess(input)
+      }
+    });
+    return isEmptyError;
+  }
+
+  function checkEmailError(input) {
+    const regexEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    input.value = input.value.trim();
+    let isEmailError = !regexEmail.test(input.value);
+    if (regexEmail.test(input.value)) {
+      showSuccess(input);
+    } else {
+      showError(input, 'Email Invalid!');
+    }
+    return isEmailError;
+  }
+
+  function displayErrorMessage(message) {
+    var errorMessageElement = document.querySelector("#error-message");
+    errorMessageElement.textContent = message;
+  }
+
+  
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    let isEmptyError = checkEmptyError([userEmail, userPassword]);
+    let isEmailError = checkEmailError(userEmail);
+
+    if (!isEmptyError && !isEmailError) {
+      var formData = {
+        email: userEmail.value,
+        password: userPassword.value,
+      };
+
+      axios.post('/login', formData)
+        .then(function (response) {
+          window.location.href = "/dashboard/store";
+        })
+        .catch(function (error) {
+          if (error.response) {
+            displayErrorMessage(error.response.data.message);
+          }
+        });
+    }
+
+  })
 </script>

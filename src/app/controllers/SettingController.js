@@ -56,18 +56,22 @@ class SettingController {
     };
 
     editProfile(req, res, next) {
+        const userAvatar = req.cookies.userAvatar;
+        const userName = req.cookies.userName;
         User.findById(req.params.id)
             .then((User) => {
-                res.render('admin/settings', {
+                res.render('admin/editProfile', {
                     layout: "admin",
                     User: mongooseToObject(User),
+                    userName: userName,
+                    userAvatar: userAvatar,
                 });
             })
             .catch(next);
     }
 
     updateProfile(req, res, next) {
-
+        debugger
         const userId = req.params.id;
         const { firstName, lastName, specialized, position, city, country, education, description } = req.body;
         const updateFields = {};

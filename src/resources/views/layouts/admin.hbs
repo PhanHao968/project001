@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {{!--<meta name="viewport" content="width=device-width, initial-scale=1" /> --}}
+    {{!--
+    <meta name="viewport" content="width=device-width, initial-scale=1" /> --}}
     <meta name="theme-color" content="#000000" />
     <title>Document</title>
 
@@ -13,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/index.css" />
-<script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/tailwind.css" />
 
 </head>
@@ -22,12 +23,12 @@
     <div class="app">
         {{> header_admin}}
 
-        <div class="relative md:ml-64 bg-blueGray-50">
+        <div class="relative md:ml-36 bg-blueGray-50">
             {{{body}}}
         </div>
 
-        <div class="relative md:ml-64 bg-blueGray-50">
-        {{> footer_admin}}
+        <div class="relative md:ml-36 bg-blueGray-50">
+            {{> footer_admin}}
         </div>
 
     </div>
@@ -47,6 +48,7 @@
         }
         /* Function for dropdowns */
         function openDropdown(event, dropdownID) {
+            // debugger
             let element = event.target;
             while (element.nodeName !== "A") {
                 element = element.parentNode;
@@ -56,6 +58,31 @@
             });
             document.getElementById(dropdownID).classList.toggle("hidden");
             document.getElementById(dropdownID).classList.toggle("block");
+            //check if dropdown
+            document.addEventListener("click", function (e) {
+                const dropdown = document.getElementById(dropdownID);
+                const target = e.target;
+
+                //check click dropdown
+                if (target !== dropdown && !dropdown.contains(target) && target !== element) {
+                    dropdown.classList.add("hidden");
+                    dropdown.classList.remove("block");
+                }
+            });
+        }
+
+        function openDropdownUser(event, dropdownID) {
+            // debugger
+            let element = event.target;
+            while (element.nodeName !== "A") {
+                element = element.parentNode;
+            }
+            Popper.createPopper(element, document.getElementById(dropdownID), {
+                placement: "bottom-start"
+            });
+            document.getElementById(dropdownID).classList.toggle("hidden");
+            document.getElementById(dropdownID).classList.toggle("block");
+
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
@@ -65,15 +92,15 @@
         integrity="sha512-6DC1eE3AWg1bgitkoaRM1lhY98PxbMIbhgYCGV107aZlyzzvaWCW1nJW2vDuYQm06hXrW0As6OGKcIaAVWnHJw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        
-       function validateForm() {
-         const password =  document.forms["loginForm"]["password"].value;
-         if(password.length === 0)
-             alert("Please enter a password !");         
-       }
+
+        function validateForm() {
+            const password = document.forms["loginForm"]["password"].value;
+            if (password.length === 0)
+                alert("Please enter a password !");
+        }
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
 </body>
 
 </html>

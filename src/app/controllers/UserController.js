@@ -10,16 +10,22 @@ class UserController {
   }
   // register user
   async store(req, res, next) {
+    const defaultAvatarPath = '/img/avatar-1685241954262.png';
     try {
-      const { name, email, password } = req.body;
+      const { name, email, password, confirmPassword } = req.body;
       const userExists = await User.findOne({ email });
       if (userExists) {
-        return res.status(400).json({ message: "Email đã được sử dụng." });
+        return res.status(400).json({ message: "Email already exists!" });
       }
       if (password && password.length < 6) {
         return res
           .status(400)
           .json({ message: "Password must be at least 6 characters long" });
+      }
+      if(password != confirmPassword) {
+        return res
+          .status(400)
+          .json({ message: "Incorrect password" });
       }
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = new User({
@@ -29,6 +35,7 @@ class UserController {
         password: hashedPassword,
         isApproved: false,
         admin: process.env.ADMIN_USER === email ? true : false,
+        avatar: defaultAvatarPath,
       });
       const result = await user.save();
 
@@ -38,7 +45,7 @@ class UserController {
       } else {
         role = "pending";
       }
-      return res.redirect("/");
+      return res.redirect("/register");
     } catch (err) {
       console.log(err);
       res.status(500).json({ error: err });
@@ -46,11 +53,15 @@ class UserController {
   }
 
   userEdit(req, res, next) {
+    const userAvatar = req.cookies.userAvatar;
+    const userName = req.cookies.userName;
     User.findById(req.params.id)
       .then((User) => {
         res.render("auth/registerEdit", {
           layout: "admin",
           User: mongooseToObject(User),
+          userName: userName,
+          userAvatar: userAvatar,
         });
       })
       .catch(next);
@@ -96,6 +107,8 @@ class UserController {
     }
   }
 
+
+
   deleteUser(req, res, next) {
     const id = req.params.id.trim();
     User.delete({ _id: id })
@@ -115,7 +128,7 @@ class UserController {
     User.deleteOne({ _id: id })
       .then(() => res.redirect("back"))
       .catch(next);
-  }
+  };
 
   // Controller
   updateUserApproval = async (req, res) => {
@@ -129,12 +142,12 @@ class UserController {
           isApproved,
         }
       ).exec();
-
-      res.redirect("../dashboard/store");
+      res.redirect('../dashboard/store')
     } catch (error) {
       res.status(500).json({ success: false, error: error.message });
     }
   };
+
 }
 
 module.exports = new UserController();

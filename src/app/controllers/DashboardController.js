@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const Product = require("../models/products");
+const Product = require("../models/content02");
 const { mutipleMongooseToObject } = require("../../util/mongoose");
 //const { response } = require('../..');
 const mongoose = require("../../util/mongoose");
