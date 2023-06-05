@@ -1,122 +1,164 @@
 <div id="root">
-    <nav
-        class="md:left-0 md:block md:fixed md:top-14 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-55 z-1 py-6 px-6">
-        <div
-            class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
-            <button
-                class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
-                type="button" onclick="toggleNavbar('example-collapse-sidebar')">
-                <i class="fas fa-bars"></i>
-            </button>
-            <a class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-10 px-0"
-                href="../">
-                TD Group X
-            </a>
-            {{!-- <ul class="md:hidden items-center flex flex-wrap list-none"></ul> --}}
-            <div class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded hidden"
-                id="example-collapse-sidebar">
+  <nav
+    class="md:left-0 md:block md:fixed md:top-14 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-55 z-1 py-6 px-6"
+  >
+    <div
+      class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto"
+    >
+      <button
+        class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
+        type="button"
+        onclick="toggleNavbar('example-collapse-sidebar')"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+      <a
+        class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-10 px-0"
+        href="../"
+      >
+        TD Group X
+      </a>
+      {{! <ul class="md:hidden items-center flex flex-wrap list-none"></ul> }}
+      <div
+        class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded hidden"
+        id="example-collapse-sidebar"
+      >
 
-                <!-- Divider -->
-                <hr class="my-4 md:min-w-full" />
-                <!-- Heading -->
+        <!-- Divider -->
+        <hr class="my-4 md:min-w-full" />
+        <!-- Heading -->
 
-                {{!-- <h6
+        {{! <h6
                     class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
                     <i class="fas fa-user mr-2 text-sm opacity-75"></i>
-                </h6> --}}
+                </h6> }}
 
+        <!-- Navigation -->
 
-                <!-- Navigation -->
+        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
 
-                <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+          <td
+            class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
+          >
+            <a
+              href="#pablo"
+              class="text-sm py-3 font-bold block text-blueGray-700 hover:text-pink-600"
+              onclick="openDrop(event,'table-light-1-dropdown')"
+            >
+              <i class="fas fa-user mr-2 text-sm opacity-75"></i>
+              Admin
+            </a>
 
-                    <td
-                        class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                        <a href="#pablo" class="text-sm py-3 font-bold block text-blueGray-700 hover:text-pink-600"
-                            onclick="openDropdown(event,'table-light-1-dropdown')">
-                            <i class="fas fa-user mr-2 text-sm opacity-75"></i> Admin
-                        </a>
+          </td>
 
+          <td
+            class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
+          >
+            <a
+              href="#pablo"
+              class="text-sm py-3 font-bold block text-blueGray-700 hover:text-pink-600"
+              onclick="openDropdown(event,'table-light-2-dropdown')"
+            >
+              <i class="fa fa-folder text-sm"></i>
+              Contents
+            </a>
 
-                        <div class="hidden bg-white text-base z-50 w-40 absolute  float-right py-2 list-none text-left rounded shadow-lg"
-                            style="z-index: 9999; left: auto; top: 100%; transform: translate(0, 10px);"
-                            id="table-light-1-dropdown">
-                            <ul>
-                                <li class="items-center">
-                                    <a href="/dashboard/store"
-                                        class="text-xs py-3 font-bold block text-blueGray-700 hover:text-pink-600">
-                                        <i class="fas fa-user mr-2 text-sm opacity-75"></i>
-                                        Users
-                                    </a>
-                                </li>
+            <div
+              class="hidden bg-white text-base z-50 w-40 float-right py-2 list-none text-left rounded shadow-lg"
+              style="z-index: 9999;"
+              id="table-light-2-dropdown"
+            >
+              <ul>
 
-                                <li class="items-center">
-                                    <a href="/dashboard/trash"
-                                        class="text-xs py-3 font-bold block text-blueGray-700 hover:text-pink-600">
-                                        <i class="fas mr-2 text-sm fa-trash-alt"></i>
-                                        Trash
-                                    </a>
-                                </li>
+                <li class="items-center">
+                  <a
+                    href="/content02/storecontent"
+                    class="text-xs py-3 font-bold block text-blueGray-700 hover:text-pink-600"
+                  >
+                    <i class="fas fa-arrow-right text-red-500 text-sm"></i>
+                    Store
+                  </a>
+                </li>
 
-                                <li class="items-center">
-                                    <a href="/setting"
-                                        class="text-xs py-3 font-bold block text-blueGray-700 hover:text-pink-600">
-                                        <i class="fas fa-tools mr-2 text-sm opacity-75"></i>
-                                        Settings
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                <li class="items-center">
+                  <a
+                    href="/content02/create"
+                    class="text-xs py-3 font-bold block text-blueGray-700 hover:text-pink-600"
+                  >
+                    <i class="fas fa-arrow-right text-red-500 text-sm"></i>
+                    Create
+                  </a>
+                </li>
 
-                    </td>
+                <li class="items-center">
+                  <a
+                    href="/content02/trashcontent"
+                    class="text-xs py-3 font-bold block text-blueGray-700 hover:text-pink-600"
+                  >
+                    <i class="fas fa-arrow-right text-red-500 text-sm"></i>
+                    Trash
+                  </a>
+                </li>
 
-                    <td
-                        class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                        <a href="#pablo" class="text-sm py-3 font-bold block text-blueGray-700 hover:text-pink-600"
-                            onclick="openDropdown(event,'table-light-2-dropdown')">
-                            <i class="fa fa-folder text-sm"></i> Contents
-                        </a>
-
-                        <div class="hidden bg-white text-base z-50 w-40 float-right py-2 list-none text-left rounded shadow-lg"
-                            style="z-index: 9999;" id="table-light-2-dropdown">
-                            <ul>
-                                
-                                <li class="items-center">
-                                    <a href="/content02/storecontent"
-                                        class="text-xs py-3 font-bold block text-blueGray-700 hover:text-pink-600">
-                                        <i class="fas fa-arrow-right text-red-500 text-sm"></i> Store
-                                    </a>
-                                </li>
-
-                                <li class="items-center">
-                                    <a href="/content02/create"
-                                        class="text-xs py-3 font-bold block text-blueGray-700 hover:text-pink-600">
-                                        <i class="fas fa-arrow-right text-red-500 text-sm"></i> Create
-                                    </a>
-                                </li>
-
-                                <li class="items-center">
-                                    <a href="/content02/trashcontent"
-                                        class="text-xs py-3 font-bold block text-blueGray-700 hover:text-pink-600">
-                                        <i class="fas fa-arrow-right text-red-500 text-sm"></i> Trash
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </td>
-                </ul>
+              </ul>
             </div>
-        </div>
-    </nav>
+          </td>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-    {{!-- acction --}}
-    <div class="relative md:ml-0 bg-blueGray-50">
-        <nav
-            class="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4">
-            <div class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
-                <a class="text-white text-sm uppercase hidden lg:inline-block font-semibold" href="../">TD Group X</a>
-                {{!-- <form class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">
+  <div
+    class="hidden bg-white text-base z-50 w-40 absolute float-right py-2 list-none text-left rounded shadow-lg left-3 pl-8"
+    style="z-index: 9999; left: auto; top: 100%; transform: translate(0, 10px);"
+    id="table-light-1-dropdown"
+  >
+    <ul>
+      <li class="items-center">
+        <a
+          href="/dashboard/store"
+          class="text-xs py-3 font-bold block text-blueGray-700 hover:text-pink-600"
+        >
+          <i class="fas fa-user mr-2 text-sm opacity-75"></i>
+          Users
+        </a>
+      </li>
+
+      <li class="items-center">
+        <a
+          href="/dashboard/trash"
+          class="text-xs py-3 font-bold block text-blueGray-700 hover:text-pink-600"
+        >
+          <i class="fas mr-2 text-sm fa-trash-alt"></i>
+          Trash
+        </a>
+      </li>
+
+      <li class="items-center">
+        <a
+          href="/setting"
+          class="text-xs py-3 font-bold block text-blueGray-700 hover:text-pink-600"
+        >
+          <i class="fas fa-tools mr-2 text-sm opacity-75"></i>
+          Settings
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  {{! acction }}
+  <div class="relative md:ml-0 bg-blueGray-50">
+    <nav
+      class="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4"
+    >
+      <div
+        class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4"
+      >
+        <a
+          class="text-white text-sm uppercase hidden lg:inline-block font-semibold"
+          href="../"
+        >TD Group X</a>
+        {{! <form class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">
                     <div class="relative flex w-full flex-wrap items-stretch">
                         <span
                             class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3"><i
@@ -124,45 +166,73 @@
                         <input type="text" placeholder="Search here..."
                             class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-full pl-10" />
                     </div>
-                </form> --}}
-                <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
+                </form> }}
+        <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
 
-                    <a class="text-blueGray-500 block" href="#pablo" onclick="openDropdownUser(event,'user-dropdown')">
-                        <div class="items-center flex">
-                            <span class="text-sm text-white inline-flex items-center justify-center rounded-full ">
-                                <img src="{{userAvatar}}" alt="avt" class="rounded-full h-8 w-8 mr-2">
-                            </span>
-                            <span
-                                class="text-sm py-2 px-2 font-normal block w-full whitespace-nowrap bg-transparent text-white">
-                                {{userName}}
-                            </span>
-                        </div>
-                    </a>
-
-                    <div class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
-                        id='user-dropdown'>
-                        <a href="/dashboard/store"
-                            class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:text-pink-600">
-                            <i class="fas fa-user mr-2 text-sm opacity-75"></i>
-                            Hi!. {{userName}}
-                        </a>
-                        <a href="#pablo"></a>
-                        <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
-                        <a href="/logout"
-                            class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:text-pink-600">
-                            <i class="fas fa-lock-open px-1"></i>
-                            Logout
-                        </a>
-                    </div>
-
-                </ul>
+          <a
+            class="text-blueGray-500 block"
+            href="#pablo"
+            onclick="openDropdownUser(event,'user-dropdown')"
+          >
+            <div class="items-center flex">
+              <span
+                class="text-sm text-white inline-flex items-center justify-center rounded-full"
+              >
+                <img
+                  src="{{userAvatar}}"
+                  alt="avt"
+                  class="rounded-full h-8 w-8 mr-2"
+                />
+              </span>
+              <span
+                class="text-sm py-2 px-2 font-normal block w-full whitespace-nowrap bg-transparent text-white"
+              >
+                {{userName}}
+              </span>
             </div>
-        </nav>
+          </a>
 
-        <div class="relative bg-pink-600 md:pt-10 pb-10 pt-12">
+          <div
+            class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
+            id="user-dropdown"
+          >
+            <a
+              href="/dashboard/store"
+              class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:text-pink-600"
+            >
+              <i class="fas fa-user mr-2 text-sm opacity-75"></i>
+              Hi!.
+              {{userName}}
+            </a>
+            <a href="#pablo"></a>
+            <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
+            <a
+              href="/logout"
+              class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:text-pink-600"
+            >
+              <i class="fas fa-lock-open px-1"></i>
+              Logout
+            </a>
+          </div>
 
-        </div>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="relative bg-pink-600 md:pt-10 pb-10 pt-12">
 
     </div>
+
+  </div>
 </div>
 <script src="path/to/handlebars.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+
+<script>
+  function openDrop(event, idComponent) { let element = event.target; while
+  (element.nodeName !== "A") { element = element.parentNode; }
+  Popper.createPopper(element, document.getElementById(idComponent), {
+  placement: "right-start", });
+  document.getElementById(idComponent).classList.toggle("hidden");
+  document.getElementById(idComponent).classList.toggle("block"); }
+</script>
